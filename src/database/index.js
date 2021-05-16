@@ -1,29 +1,32 @@
 const Sequelize = require('sequelize');
 const dbConfig = require('../config/database');
-const Activitie = require('../models/Activitie');
-const Attendant = require('../models/Attendant');
-const Customer = require('../models/Customer');
-const Registration = require('../models/Registration');
-const Term = require('../models/Term');
+const Endereco = require('../models/Endereco');
+const Equipamento = require('../models/Equipamento');
+const Usuario = require('../models/Usuario');
+const Permissoe = require('../models/Permissoe');
+const Entrega = require('../models/Entrega');
+const Beneficio = require('../models/Beneficio');
+const Pessoa = require('../models/Pessoa');
 
-const User = require('../models/User')
 
 
 const connection = new Sequelize(dbConfig);
 
-User.init(connection);
-Customer.init(connection);
-Registration.init(connection);
-Activitie.init(connection);
-Attendant.init(connection);
-Term.init(connection);
+Endereco.init(connection);
+Equipamento.init(connection);
+Usuario.init(connection);
+Permissoe.init(connection);
+Entrega.init(connection);
+Beneficio.init(connection);
+Pessoa.init(connection);
 
 
 
 //associate
-User.associate(connection.models);
-Customer.associate(connection.models);
-Registration.associate(connection.models);
-Activitie.associate(connection.models);
-Attendant.associate(connection.models);
-Term.associate(connection.models);
+Endereco.associate(connection.models);
+Equipamento.associate(connection.models);
+Usuario.associate(connection.models);
+Permissoe.associate(connection.models);
+Entrega.associate(connection.models);
+Beneficio.associate(connection.models);
+Pessoa.associate(connection.models);

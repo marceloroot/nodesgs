@@ -12,7 +12,7 @@ module.exports = {
       equipamento_id:{
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{ model:'enderecos', key:'id' },
+        references:{ model:'equipamentos', key:'id' },
         onUpdate:'CASCADE',
         onDelete:'CASCADE',
       },

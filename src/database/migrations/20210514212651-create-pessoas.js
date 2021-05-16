@@ -56,7 +56,7 @@ module.exports = {
       },
       
       estadoCivil: {
-        type: Sequelize.ENUM(["Solteiro(a)", "Casado(a)", "Divorciado(a)","Viuvo(a)"]),
+        type: Sequelize.ENUM("Solteiro(a)", "Casado(a)", "Divorciado(a)","Viuvo(a)"),
         defaultValue: "Solteiro(a)",
       },
       renda: {
