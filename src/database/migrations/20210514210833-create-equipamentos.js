@@ -9,13 +9,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true
       },
-      endereco_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references:{ model:'enderecos', key:'id' },
-        onUpdate:'CASCADE',
-        onDelete:'CASCADE',
-      },
+     
       nome: {
           type: Sequelize.STRING(200),
           allowNull: false,
@@ -28,6 +22,27 @@ module.exports = {
       },
       observacao: {
         type: Sequelize.STRING(200),
+      },
+      cep:{
+        type: Sequelize.STRING(9),
+      },
+      logradouro: {
+          type: Sequelize.STRING(200),
+      },
+      complemento: {
+          type: Sequelize.STRING(200),
+      },
+      bairro: {
+          type: Sequelize.STRING(200),
+      },
+      localidade: {
+        type: Sequelize.STRING(200),
+      },
+      numero: {
+          type: Sequelize.STRING(100),
+      },
+      uf: {
+          type: Sequelize.STRING(2),
       },
       status: {
         type: Sequelize.ENUM("A", "I", "E"),

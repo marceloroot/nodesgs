@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const dbConfig = require('../config/database');
-const Endereco = require('../models/Endereco');
 const Equipamento = require('../models/Equipamento');
 const Usuario = require('../models/Usuario');
 const Permissoe = require('../models/Permissoe');
@@ -12,7 +11,7 @@ const Pessoa = require('../models/Pessoa');
 
 const connection = new Sequelize(dbConfig);
 
-Endereco.init(connection);
+
 Equipamento.init(connection);
 Usuario.init(connection);
 Permissoe.init(connection);
@@ -23,7 +22,7 @@ Pessoa.init(connection);
 
 
 //associate
-Endereco.associate(connection.models);
+
 Equipamento.associate(connection.models);
 Usuario.associate(connection.models);
 Permissoe.associate(connection.models);

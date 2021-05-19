@@ -12,13 +12,13 @@ const router = express.Router();
 
 //Carrega rota
 const indexRoute =require('./routes/index-route');
-const enderecoRoute =require('./routes/endereco-routes');
+const equipamentoRoute =require('./routes/equipamento-routes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Habilita o CORS
 app.use(cors());
-app.use('/endereco',enderecoRoute);
+app.use('/equipamento',equipamentoRoute);
 
 module.exports =app;
 

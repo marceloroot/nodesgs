@@ -8,6 +8,13 @@ class Equipamento extends Model {
     responsavel:DataTypes.STRING,
     sobre:DataTypes.STRING,
     observacao:DataTypes.STRING,
+    cep:DataTypes.STRING,
+    logradouro:DataTypes.STRING,
+    complemento:DataTypes.STRING,
+    bairro:DataTypes.STRING,
+    localidade:DataTypes.STRING,
+    numero:DataTypes.STRING,
+    uf:DataTypes.STRING,
     status: {
       type: DataTypes.ENUM,
       values: ["A", "I", "E"]
@@ -21,7 +28,7 @@ class Equipamento extends Model {
 
 
   static associate(models){
-   this.belongsTo(models.Endereco,{ foreignKey: 'endereco_id', as:'endereco' })
+ 
    this.hasMany(models.Usuario,{ foreignKey: 'equipamento_id', as:'usuarios' })
   }
  

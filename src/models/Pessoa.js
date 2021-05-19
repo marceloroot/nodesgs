@@ -26,6 +26,14 @@ class Pessoa extends Model {
     },
     observacao:DataTypes.STRING,
     observacaoRestrita:DataTypes.STRING,
+    cep:DataTypes.STRING,
+    logradouro:DataTypes.STRING,
+    complemento:DataTypes.STRING,
+    bairro:DataTypes.STRING,
+    localidade:DataTypes.STRING,
+    numero:DataTypes.STRING,
+    uf:DataTypes.STRING,
+
     status: {
       type: DataTypes.ENUM,
       values: ["A", "I", "E"]
@@ -42,7 +50,6 @@ class Pessoa extends Model {
    this.belongsTo(models.Pessoa,{ foreignKey: 'familiar_id', as:'pessoa' })
    this.hasMany(models.Pessoa,{ foreignKey: 'familiar_id', as:'familiares' }) 
    //FIm loop de ligacao
-   this.belongsTo(models.Endereco,{ foreignKey: 'endereco_id', as:'endereco' })
    this.belongsTo(models.Usuario,{ foreignKey: 'usuario_id', as:'usuario' })
    this.belongsToMany(models.Beneficio, { foreignKey: 'pessoas_id', through: 'pessoas_beneficios', as: 'beneficios' });
   //Entrega 
