@@ -7,20 +7,20 @@ function ValidationContract() {
 
 }
 
-ValidationContract.prototype.isCPFUpdade = (value,valueOld,name, message) => {
+ValidationContract.prototype.isEmailUpdade = (value,valueOld,name, message) => {
  
    
-    if (value && valueOld != value.cpf)
-    errors[name] = {[name]:[message]};
+    if (value && valueOld.email != value.email)
+    errors[name] = [message];
    
 }
 
 
-ValidationContract.prototype.isCPF = (value,name, message) => {
+ValidationContract.prototype.isValue = (value,name, message) => {
  
    
     if (value)
-    errors[name] = {[name]:[message]};
+    errors[name] = [message];
    
 }
 

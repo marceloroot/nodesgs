@@ -1,5 +1,5 @@
 'use strict';
- const Equipamento = require('../models/Equipamento');
+ const Beneficio = require('../models/Beneficio');
  const ValidationContract = require("../validator/fluent-validators");
 module.exports = {
     async store(req,res){
@@ -7,9 +7,8 @@ module.exports = {
             try{
         
             let contract = new ValidationContract();
-            contract.isRequired(req.body.cep, 'cep', 'O Cep é obrigatorio');
-            contract.isRequired(req.body.nome, 'nome', 'O Nome é obrigatorio');
-            contract.isRequired(req.body.numero, 'numero', 'O numero é obrigatorio');
+            contract.isRequired(req.body.nome, 'nome', 'O Cep é obrigatorio');
+       
             
             
             // Se os dados forem inválidos
@@ -19,11 +18,11 @@ module.exports = {
                 })
             };
 
-            const equipamento = await Equipamento.create(req.body); 
+            const beneficio = await Beneficio.create(req.body); 
 
             return res.status(201).json({
-                msg:"Equipamento cadastrado com sucesso",
-                data:equipamento
+                msg:"Beneficio cadastrado com sucesso",
+                data:beneficio
 
             })
         }
@@ -39,11 +38,9 @@ module.exports = {
        
         try{
         const { id } = req.params;
-        console.log(id);
         let contract = new ValidationContract();
-        contract.isRequired(req.body.cep, 'cep', 'O Cep é obrigatorio');
-        contract.isRequired(req.body.nome, 'nome', 'O Nome é obrigatorio');
-        contract.isRequired(req.body.numero, 'numero', 'O numero é obrigatorio');
+        contract.isRequired(req.body.nome, 'nome', 'O Cep é obrigatorio');
+        
         
         
         // Se os dados forem inválidos
@@ -52,19 +49,19 @@ module.exports = {
             error:contract.errors()
             })
         };
-        const equipamento = await Equipamento.findByPk(id);
-        if(!equipamento){
+        const beneficio = await Beneficio.findByPk(id);
+        if(!beneficio){
             return res.status(201).json({
-                msg:'Equipamento não existe',
+                msg:'Beneficio não existe',
                
             })
         }
 
-        const equipamentoAtualizado = await equipamento.update(req.body); 
+        const beneficioAtualizado = await beneficio.update(req.body); 
 
         return res.status(201).json({
-            msg:"Equipamento Atualizado com sucesso",
-            data:equipamentoAtualizado
+            msg:"Beneficio Atualizado com sucesso",
+            data:beneficioAtualizado
 
         })
     }
@@ -80,9 +77,9 @@ module.exports = {
      try{
         const { id } = req.params;
        
-        const equipamento = await Equipamento.findByPk(id);
+        const beneficio = await Beneficio.findByPk(id);
         return res.status(201).send({
-            equipamento:equipamento
+            beneficio:beneficio
         })
      }
      catch(err){
@@ -95,9 +92,9 @@ module.exports = {
 
     async index(req,res){
         try{
-            const equipamentos = await Equipamento.findAll();
+            const beneficios = await Beneficio.findAll();
             return res.status(201).send({
-                equipamentos:equipamentos
+                beneficios:beneficios
             })
         }
         catch(err){

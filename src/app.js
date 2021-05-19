@@ -13,12 +13,16 @@ const router = express.Router();
 //Carrega rota
 const indexRoute =require('./routes/index-route');
 const equipamentoRoute =require('./routes/equipamento-routes');
+const beeneficioRoute =require('./routes/beneficio-routes');
+const usuarioRoute =require('./routes/usuario-routes');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Habilita o CORS
 app.use(cors());
 app.use('/equipamento',equipamentoRoute);
-
+app.use('/beneficio',beeneficioRoute);
+app.use('/usuario',usuarioRoute);
 module.exports =app;
 
