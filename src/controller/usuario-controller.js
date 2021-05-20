@@ -10,9 +10,10 @@ module.exports = {
             const {nome,senha,email,telefone,equipamento_id} = req.body;
             const usuarioExist = await Usuario.findOne({where:{email:email}});
             let contract = new ValidationContract();
-            contract.isRequired(nome, 'nome', 'O Cep é obrigatorio');
+            contract.isRequired(nome, 'nome', 'O Nome é obrigatorio');
             contract.isRequired(senha, 'senha', 'A senha é obrigatorio');
             contract.isRequired(email, 'email', 'O email é obrigatorio');
+            contract.isEmail(email, 'email', 'O email é Invalido');
             contract.isRequired(equipamento_id, 'equipamento_id', 'O Equipamento é obrigatorio');
             contract.isValue(usuarioExist, 'email', 'O email é já existe');
             // Se os dados forem inválidos
@@ -21,7 +22,6 @@ module.exports = {
                 error:contract.errors()
                 })
             };
-
             const senhaNova =  md5(req.body.senha + process.env.APP_SECRET_KEY);
             const usuario = await Usuario.create({
                 nome,
@@ -101,6 +101,19 @@ module.exports = {
 
 },
 
+async index(req,res){
+    try{
+        const usuarios = await Usuario.findAll();
+        return res.status(201).send({
+            usuarios:usuarios
+        })
+    }
+    catch(err){
+        res.status(200).send({
+            error:err.message
+        })
+    }
+},
 
     async show(req,res){
         try{
@@ -170,6 +183,44 @@ module.exports = {
                 
         });
     },
+
+    async mudastatus(req,res){
+        try{
+            const {id} = req.params;
+            const usuario = await Usuario.findByPk(id);
+            if(!usuario){
+                return res.status(200).send({
+                    msg:'Usuario não existe'
+                });
+            }
+            if(usuario.status == "A"){
+                const usuarioAtualizado = usuario.update({
+                    status:"I"
+                })
+                return res.status(201).send({
+                    msg:"Usuairo Inativo",
+                    
+                })
+            }
+            else{
+                const usuarioAtualizado = usuario.update({
+                    status:"A"
+                })
+                return res.status(201).send({
+                    msg:"Usuairo Ativo",
+                    
+                })
+            }
+           
+
+           
+        }
+        catch(err){
+            return res.status(200).send({
+                error:err.message
+            })
+        }
+    }
    
 }
 

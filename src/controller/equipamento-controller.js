@@ -101,9 +101,11 @@ module.exports = {
             })
         }
         catch(err){
-            res.status(201).send({
+            res.status(200).send({
                 error:err.message
             })
         }
-    }
+    },
+
+    
 }
