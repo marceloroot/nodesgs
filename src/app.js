@@ -15,6 +15,7 @@ const indexRoute =require('./routes/index-route');
 const equipamentoRoute =require('./routes/equipamento-routes');
 const beeneficioRoute =require('./routes/beneficio-routes');
 const usuarioRoute =require('./routes/usuario-routes');
+const permissaoRoute =require('./routes/permissao-routes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,5 +25,6 @@ app.use(cors());
 app.use('/equipamento',equipamentoRoute);
 app.use('/beneficio',beeneficioRoute);
 app.use('/usuario',usuarioRoute);
+app.use('/permissao',permissaoRoute);
 module.exports =app;
 

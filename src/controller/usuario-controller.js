@@ -220,7 +220,24 @@ async index(req,res){
                 error:err.message
             })
         }
-    }
+    },
+
+    async showPermissao(req,res){
+        try{
+           const { id } = req.params;
+          
+           const usuario = await Usuario.findByPk(id,{include:{association:"permissoes"}});
+           return res.status(201).send({
+               usuario:usuario
+           })
+        }
+        catch(err){
+            return res.status(200).send({
+                error:err.message
+            })
+        }
+   
+    },
    
 }
 
