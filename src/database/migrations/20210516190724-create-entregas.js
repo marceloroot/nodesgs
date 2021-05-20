@@ -37,6 +37,10 @@ module.exports = {
       observacao: {
         type: Sequelize.STRING,
       },
+      status: {
+        type: Sequelize.ENUM("A", "I", "E"),
+        defaultValue: "A",
+      },
       datCadastro: {
         type: Sequelize.DATE,
       },

@@ -11,7 +11,6 @@ module.exports = {
       },
       familiar_id:{
         type: Sequelize.INTEGER,
-        allowNull: false,
         references:{ model:'pessoas', key:'id' },
         onUpdate:'CASCADE',
         onDelete:'CASCADE',
@@ -95,6 +94,10 @@ module.exports = {
       status: {
         type: Sequelize.ENUM("A", "I", "E"),
         defaultValue: "A",
+      },
+      chefe: {
+        type: Sequelize.ENUM("S", "N"),
+        defaultValue: "S",
       },
     
       created_at: {
