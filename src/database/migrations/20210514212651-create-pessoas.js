@@ -38,7 +38,7 @@ module.exports = {
       telefone: {
         type: Sequelize.STRING(200),
       },
-      dataNascimento: {
+      datanascimento: {
         type: Sequelize.DATE,
       },
       rg: {
@@ -48,26 +48,26 @@ module.exports = {
         type: Sequelize.STRING(200),
       },
       
-      estadoCivil: {
+      estadocivil: {
         type: Sequelize.ENUM("Solteiro(a)", "Casado(a)", "Divorciado(a)","Viuvo(a)"),
         defaultValue: "Solteiro(a)",
       },
       renda: {
         type: Sequelize.DECIMAL,
       },
-      ctpsAssinada: {
-        type: Sequelize.ENUM("S","N"),
-        defaultValue: "S",
+      ctpsassinada: {
+        type: Sequelize.INTEGER,
+        defaultValue: true,
       },
       ppcl: {
-        type: Sequelize.ENUM("S","N"),
-        defaultValue: "S",
+        type: Sequelize.Sequelize.INTEGER,
+        defaultValue: false,
       },
       
       observacao: {
         type: Sequelize.STRING,
       },
-      observacaoRestrita: {
+      observacaorestrita: {
         type: Sequelize.STRING,
       },
       cep:{

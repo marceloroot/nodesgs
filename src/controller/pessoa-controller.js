@@ -5,13 +5,20 @@ module.exports = {
     async store(req,res){
        
             try{
-        
+                
+            
             let contract = new ValidationContract();
-            contract.isRequired(req.body.cpf, 'cep', 'O Cep é obrigatorio');
-            contract.isValue(req.body.cpf, 'cpf', 'O cpf já existe');
+            if(req.body.cpf){
+                const pessoaExist  = await Pessoa.findOne({where:{cpf:req.body.cpf}});
+                contract.isValue(pessoaExist, 'cpf', 'O cpf já existe');
+            }
+            
+           
+            contract.isRequired(req.body.cpf, 'cpf', 'O cpf é obrigatorio');
+           
             contract.isRequired(req.body.nome, 'nome', 'O Nome é obrigatorio');
-            contract.isRequired(req.body.cep, 'cep', 'O cep é obrigatorio');
-            contract.isRequired(req.body.numero, 'numero', 'O cep é obrigatorio');
+            contract.isRequired(req.body.cep, 'cep', 'O Cep é obrigatorio');
+            contract.isRequired(req.body.numero, 'numero', 'O Numero é obrigatorio');
             contract.isRequired(req.body.sexo, 'sexo', 'O Sexo é obrigatorio');
             
            

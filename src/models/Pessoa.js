@@ -8,24 +8,18 @@ class Pessoa extends Model {
     cpf:DataTypes.STRING,
     sexo:DataTypes.STRING,
     telefone:DataTypes.STRING,
-    dataNascimento:DataTypes.DATE,
+    datanascimento:DataTypes.DATE,
     rg:DataTypes.STRING,
     escolaridade:DataTypes.STRING,
-    estadoCivil:{
+    estadocivil:{
       type: DataTypes.ENUM,
       values: ["Solteiro(a)", "Casado(a)", "Divorciado(a)","Viuvo(a)"]
     },
     renda:DataTypes.DECIMAL,
-    ctpsAssinada:{
-      type: DataTypes.ENUM,
-      values: ["S","N"]
-    },
-    ppcl:{
-      type: DataTypes.ENUM,
-      values: ["S","N"]
-    },
+    ctpsassinada:DataTypes.INTEGER,
+    ppcl:DataTypes.INTEGER,
     observacao:DataTypes.STRING,
-    observacaoRestrita:DataTypes.STRING,
+    observacaorestrita:DataTypes.STRING,
     cep:DataTypes.STRING,
     logradouro:DataTypes.STRING,
     complemento:DataTypes.STRING,
@@ -38,7 +32,10 @@ class Pessoa extends Model {
       type: DataTypes.ENUM,
       values: ["A", "I", "E"]
     },
-   
+    chefe: {
+      type: DataTypes.ENUM,
+      values: ["S", "N"]
+    },
     
     }, {
       sequelize
