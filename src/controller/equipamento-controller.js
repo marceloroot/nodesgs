@@ -39,7 +39,6 @@ module.exports = {
        
         try{
         const { id } = req.params;
-        console.log(id);
         let contract = new ValidationContract();
         contract.isRequired(req.body.cep, 'cep', 'O Cep é obrigatorio');
         contract.isRequired(req.body.nome, 'nome', 'O Nome é obrigatorio');

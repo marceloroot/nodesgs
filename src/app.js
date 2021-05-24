@@ -17,6 +17,7 @@ const beeneficioRoute =require('./routes/beneficio-routes');
 const usuarioRoute =require('./routes/usuario-routes');
 const permissaoRoute =require('./routes/permissao-routes');
 const pessoaRoute =require('./routes/pessoa-routes');
+const familiarRoute =require('./routes/familiar-routes');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,5 +29,6 @@ app.use('/beneficio',beeneficioRoute);
 app.use('/usuario',usuarioRoute);
 app.use('/permissao',permissaoRoute);
 app.use('/pessoa',pessoaRoute);
+app.use('/familiar',familiarRoute);
 module.exports =app;
 

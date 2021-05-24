@@ -7,6 +7,52 @@ function ValidationContract() {
 
 }
 
+const validacpf = (cpf) => {
+    const isRepeatingNumber = str => /^(\d)(\1){10}$/.test(str);
+	 cpf = cpf.replace(/\D/g, '');
+
+	if (
+		cpf === '' ||
+		cpf.length !== 11 ||
+		!/^\d{11}$/.test(cpf) ||
+		isRepeatingNumber(cpf)
+	) {
+		return false;
+	}
+
+	const digits = cpf.split('').map(x => parseInt(x));
+
+	for (let j = 0; j < 2; j++) {
+		let sum = 0;
+
+		for (let i = 0; i < 9 + j; i++) {
+			sum += digits[i] * (10 + j - i);
+		}
+
+		let checkDigit = 11 - (sum % 11);
+
+		if (checkDigit === 10 || checkDigit === 11) {
+			checkDigit = 0;
+		}
+
+		if (checkDigit !== digits[9 + j]) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
+ValidationContract.prototype.isCpfValid = (value,name, message) => {
+ 
+   
+    if (!validacpf(value))
+    errors[name] = [message];
+   
+}
+
+
+
 ValidationContract.prototype.isEmailUpdade = (value,valueOld,name, message) => {
  
    
@@ -15,6 +61,20 @@ ValidationContract.prototype.isEmailUpdade = (value,valueOld,name, message) => {
    
 }
 
+ValidationContract.prototype.isCpfUpdade = (value,valueOld,name, message) => {
+ 
+   
+    if (value && valueOld.cpf != value.cpf)
+    errors[name] = [message];
+   
+}
+ValidationContract.prototype.isEnderecoUpdade = (value,id,name, message) => {
+ 
+   
+    if(value && value.id != id)
+    errors[name] = [message];
+   
+}
 
 ValidationContract.prototype.isValue = (value,name, message) => {
  
@@ -70,6 +130,8 @@ ValidationContract.prototype.isValid = () => {
     
   
 }
+
+
 function isEmpty(obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }

@@ -10,6 +10,7 @@ class Pessoa extends Model {
     telefone:DataTypes.STRING,
     datanascimento:DataTypes.DATE,
     rg:DataTypes.STRING,
+    parentesco:DataTypes.STRING,
     escolaridade:DataTypes.STRING,
     estadocivil:{
       type: DataTypes.ENUM,

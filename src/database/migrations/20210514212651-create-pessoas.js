@@ -44,6 +44,9 @@ module.exports = {
       rg: {
         type: Sequelize.STRING(200),
       },
+      parentesco: {
+        type: Sequelize.STRING(200),
+      },
       escolaridade: {
         type: Sequelize.STRING(200),
       },
