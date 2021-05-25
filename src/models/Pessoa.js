@@ -45,7 +45,7 @@ class Pessoa extends Model {
 
 
   static associate(models){
-   this.belongsTo(models.Pessoa,{ foreignKey: 'familiar_id', as:'pessoa' })
+   this.belongsTo(models.Pessoa,{ foreignKey: 'familiar_id', as:'responsavel' })
    this.hasMany(models.Pessoa,{ foreignKey: 'familiar_id', as:'familiares' }) 
    //FIm loop de ligacao
    this.belongsTo(models.Usuario,{ foreignKey: 'usuario_id', as:'usuario' })

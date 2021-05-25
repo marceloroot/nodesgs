@@ -137,13 +137,14 @@ module.exports = {
     }
 
     },
+   
     async show(req,res){
         try{
             const { id } = req.params;
            
-            const pessoa = await Pessoa.findByPk(id);
+            const pessoaUse = await Pessoa.findByPk(id);
             return res.status(201).send({
-                pessoa:pessoa
+                responsavel:pessoaUse
             })
          }
          catch(err){
@@ -155,7 +156,10 @@ module.exports = {
     },
     async index(req,res){
         try{
-            const pessoas = await Pessoa.findAll();
+            const { id } = req.params;
+            const pessoas = await Pessoa.findAll({
+                where:sequelize.and({familiar_id:id},{chefe:"N"})
+            });
             return res.status(201).send({
                 pessoas:pessoas
             })
