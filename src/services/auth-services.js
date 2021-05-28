@@ -33,10 +33,11 @@ exports.authorize = function (req, res, next) {
 
 exports.isAdmin = function (req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
+   
+   
     if (!token) {
         res.status(401).json({
-            message: 'Token Inválido'
+            message: 'Acesso Restrito'
         });
     } else {
         jwt.verify(token, process.env.APP_SECRET_KEY, function (error, decoded) {
@@ -45,11 +46,43 @@ exports.isAdmin = function (req, res, next) {
                     message: 'Token Inválido'
                 });
             } else {
-                if (decoded.roles.includes('admin')) {
+                const result = decoded.permissoes.find(atv=>atv.nome == "ADM");
+            
+                if (result) {
                     next();
                 } else {
-                    res.status(403).json({
-                        message: 'Esta funcionalidade é restrita para administradores'
+                    res.status(200).json({
+                        auth:true,
+                        message: 'Restrito  e Adm'
+                    });
+                }
+            }
+        });
+    }
+};
+
+exports.isASS = function (req, res, next) {
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    
+    if (!token) {
+        res.status(401).json({
+            message: 'Acesso Restrito'
+        });
+    } else {
+        jwt.verify(token, process.env.APP_SECRET_KEY, function (error, decoded) {
+            if (error) {
+                res.status(401).json({
+                    message: 'Token Inválido'
+                });
+            } else {
+                const result = decoded.permissoes.find(atv=>atv.nome == "ASS" || atv.nome == "ADM"  );
+            
+                if (result) {
+                    next();
+                } else {
+                    res.status(200).json({
+                        auth:true,
+                        message: 'Restrito a Assistente e Adm'
                     });
                 }
             }

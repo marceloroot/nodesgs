@@ -3,11 +3,14 @@
  const { sequelize } = require('../models/Pessoa');
  const ValidationContract = require("../validator/fluent-validators");
 const { show } = require('./equipamento-controller');
+const authService = require('../services/auth-services');
 module.exports = {
     async store(req,res){
        
             try{
-                
+                const token = req.body.token || req.query.token || req.headers['x-access-token'];
+                const data = await authService.decodeToken(token);
+
             
             let contract = new ValidationContract();
             if(req.body.cpf){
@@ -38,6 +41,7 @@ module.exports = {
                 })
             };
             req.body.chefe="S";
+            req.body.usuario_id = data.id;
             const pessoa = await Pessoa.create(req.body); 
 
             return res.status(201).json({
@@ -57,7 +61,8 @@ module.exports = {
     async update(req,res){
        
         try{
-        console.log(req.body);
+            const token = req.body.token || req.query.token || req.headers['x-access-token'];
+            const data = await authService.decodeToken(token);
         const { id } = req.params;
         let contract = new ValidationContract();
         if(req.body.cpf){
@@ -93,7 +98,7 @@ module.exports = {
             })
         };
         req.body.chefe="S";
-
+        req.body.usuario_id = data.id;
         const pessoa = await Pessoa.findByPk(id);
         if(!pessoa){
             return res.status(201).json({
@@ -145,6 +150,20 @@ module.exports = {
             })
         }
     },
+    async showBeneficios(req,res){
+        try{
+            const { id } = req.params;
+            const pessoa = await Pessoa.findByPk(id,{include:{association:"beneficios"}});
+            return res.status(201).send({
+                pessoa:pessoa
+            })
+        }
+        catch(err){
+            res.status(201).send({
+                error:err.message
+            })
+        }
+    }
 
    
 

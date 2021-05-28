@@ -5,11 +5,13 @@ const router = express.Router();
 const authService = require('../services/auth-services');
 const controller = require('../controller/usuario-controller');
 
-router.post('/',controller.store);
-router.put('/:id',controller.update);
-router.post('/authenticate',controller.autenticar);
-router.get('/:id',controller.show);
-router.get('/usuariocompermissao/:id',controller.showPermissao);
-router.get('/',controller.index);
-router.put('/mudastatus/:id',controller.mudastatus);
+router.get('/decoude/',authService.authorize,controller.decoude);
+router.post('/',authService.authorize,controller.store);
+router.put('/:id',authService.authorize,controller.update);
+router.post('/authenticate/',controller.autenticar);
+router.get('/:id',authService.authorize,controller.show);
+router.get('/usuariocompermissao/:id',authService.authorize,controller.showPermissao);
+router.get('/',authService.authorize,controller.index);
+router.put('/mudastatus/:id',authService.authorize,controller.mudastatus);
+
 module.exports =router;

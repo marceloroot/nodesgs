@@ -6,7 +6,7 @@ const authService = require('../services/auth-services');
 const controller = require('../controller/permissao-controller');
 
 
-router.get('/',controller.index);
-router.put('/:userid/editpermissao/:id',controller.linkPermissao);
+router.get('/',authService.authorize,controller.index);
+router.put('/:userid/editpermissao/:id',authService.authorize,controller.linkPermissao);
 
 module.exports =router;

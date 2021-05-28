@@ -4,7 +4,7 @@
  const authService = require('../services/auth-services');
  const md5 = require('md5');
 module.exports = {
-    async store(req,res){
+async store(req,res){
          
             try{
             const {nome,senha,email,telefone,equipamento_id} = req.body;
@@ -43,10 +43,10 @@ module.exports = {
             })
         }
 
-    },
+},
 
 
-    async update(req,res){
+async update(req,res){
          
         try{
             const {id} = req.params;
@@ -115,7 +115,7 @@ async index(req,res){
     }
 },
 
-    async show(req,res){
+ async show(req,res){
         try{
            const { id } = req.params;
           
@@ -130,40 +130,44 @@ async index(req,res){
             })
         }
    
-    },
+ },
 
-    async autenticar(req,res){
+async autenticar(req,res){
         try{
             const user = await Usuario.findOne({
                 where:{
                     email:req.body.email,
                     senha:md5(req.body.password + process.env.APP_SECRET_KEY)
-                }
+                },
+                include:{association:"permissoes"},
+                
+            
             });
 
-            const t = md5(req.body.password + process.env.APP_SECRET_KEY)
-            console.log(t);
-    
-           
+
     
               if(!user){
                 res.status(400).send({
                     error:'Email ou senha errada'
                 });
                }
-          
+              
            const token = await authService.generateToken({
                 id: user.id,
                 email: user.email,
-                nome: user.nome
+                nome: user.nome,
+                permissoes:user.permissoes
             });
 
         res.status(201).send({
             access_token: token,
                 data: {
+                    id:user.id,
                     email: user.email,
-                    nome: user.nome
-                 }
+                    nome: user.nome,
+                    permissoes:user.permissoes
+                 },
+                
         });
 
         }
@@ -172,19 +176,20 @@ async index(req,res){
                 error:err.message
             })
         }
-    },
+},
 
-    async decoude(req,res){
+async decoude(req,res){
+        console.log("entrou");
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await authService.decodeToken(token);
-    
-        res.status(201).send({
-            token: data,
+        
+        res.status(200).send({
+            usuario: data,
                 
         });
-    },
+},
 
-    async mudastatus(req,res){
+async mudastatus(req,res){
         try{
             const {id} = req.params;
             const usuario = await Usuario.findByPk(id);
@@ -220,9 +225,9 @@ async index(req,res){
                 error:err.message
             })
         }
-    },
+},
 
-    async showPermissao(req,res){
+async showPermissao(req,res){
         try{
            const { id } = req.params;
           
@@ -237,7 +242,7 @@ async index(req,res){
             })
         }
    
-    },
+},
    
 }
 

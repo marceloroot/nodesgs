@@ -5,8 +5,8 @@ const router = express.Router();
 const authService = require('../services/auth-services');
 const controller = require('../controller/equipamento-controller');
 
-router.post('/',controller.store);
-router.get('/:id',controller.show);
-router.put('/:id',controller.update);
-router.get('/',controller.index);
+router.post('/',authService.isASS,controller.store);
+router.get('/:id',authService.isASS,controller.show);
+router.put('/:id',authService.isASS,controller.update);
+router.get('/',authService.isASS,controller.index);
 module.exports =router;

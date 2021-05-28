@@ -1,5 +1,6 @@
 'use strict';
  const Beneficio = require('../models/Beneficio');
+const Pessoa = require('../models/Pessoa');
  const ValidationContract = require("../validator/fluent-validators");
 module.exports = {
     async store(req,res){
@@ -102,5 +103,43 @@ module.exports = {
                 error:err.message
             })
         }
+    },
+
+    async linkPessoa(req,res){
+        try{
+            const{id,pessoaid} = req.params;
+            const beneficio = await Beneficio.findByPk(id);
+            if(!beneficio){
+                return res.status(200).send({
+                    msg:'Beneficio não existe'
+                })
+            }
+            const pessoa = await Pessoa.findByPk(pessoaid,{include:{association:"beneficios"}});
+            const result = pessoa.beneficios.find(atv => atv.id == id.toString());
+            if(pessoa.chefe != "S"){
+                return res.status(200).send({
+                    msg:'Esse não é Chefe da Familia'
+                })
+            }
+            if(result){
+             
+                pessoa.removeBeneficios(beneficio);
+            }
+            else{
+                pessoa.addBeneficios(beneficio);
+            }
+            return res.status(201).json({
+                msg:'Atualizado com sucesso',
+                data:result,
+            })
+    
+        }
+        catch(err){
+            res.status(200).send({
+                error:err.message
+            })
+        }
     }
+    
+  
 }
