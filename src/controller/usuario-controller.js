@@ -156,6 +156,7 @@ async autenticar(req,res){
                 id: user.id,
                 email: user.email,
                 nome: user.nome,
+                equipamento_id: user.equipamento_id,
                 permissoes:user.permissoes
             });
 

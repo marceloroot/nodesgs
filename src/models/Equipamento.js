@@ -30,6 +30,7 @@ class Equipamento extends Model {
   static associate(models){
  
    this.hasMany(models.Usuario,{ foreignKey: 'equipamento_id', as:'usuarios' })
+   this.hasMany(models.Entrega,{ foreignKey: 'equipamento_id', as:'entregas' })
   }
  
 

@@ -2,11 +2,14 @@
  const Pessoa = require('../models/Pessoa');
  const { sequelize } = require('../models/Pessoa');
  const ValidationContract = require("../validator/fluent-validators");
-
+ const authService = require('../services/auth-services');
+ 
 module.exports = {
     async store(req,res){
        
             try{
+                const token = req.body.token || req.query.token || req.headers['x-access-token'];
+                const data = await authService.decodeToken(token);
             const {idchefe} = req.params;
            
            const chefe = await Pessoa.findByPk(idchefe);
@@ -25,6 +28,7 @@ module.exports = {
             req.body.localidade = chefe.localidade;
             req.body.numero = chefe.numero;
             req.body.uf = chefe.uf;
+            req.body.usuario_id = data.id;
 
             let contract = new ValidationContract();
             if(req.body.cpf){
@@ -50,6 +54,8 @@ module.exports = {
             };
             req.body.chefe="N";
             req.body.familiar_id=chefe.id;
+            req.body.usuario_id = data.id;
+
             const pessoa = await Pessoa.create(req.body); 
             console.log(req.body);
             return res.status(201).json({
@@ -69,7 +75,8 @@ module.exports = {
     async update(req,res){
        
         try{
-       
+            const token = req.body.token || req.query.token || req.headers['x-access-token'];
+            const data = await authService.decodeToken(token);
         const { id } = req.params;
         const {idchefe} = req.params;
         const chefe = await Pessoa.findByPk(idchefe);

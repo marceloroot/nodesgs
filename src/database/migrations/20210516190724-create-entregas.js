@@ -30,6 +30,13 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      equipamento_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: 'usuarios', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       quantidade: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -41,7 +48,7 @@ module.exports = {
         type: Sequelize.ENUM("A", "I", "E"),
         defaultValue: "A",
       },
-      datCadastro: {
+      datacadastro: {
         type: Sequelize.DATE,
       },
       created_at: {

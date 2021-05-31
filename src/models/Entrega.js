@@ -6,7 +6,7 @@ class Entrega extends Model {
     super.init({
         quantidade:DataTypes.INTEGER,
         observacao:DataTypes.STRING,
-        datCadastro:DataTypes.DATE,
+        datacadastro:DataTypes.DATE,
     }, {
       sequelize
     });
@@ -17,6 +17,7 @@ class Entrega extends Model {
  this.belongsTo(models.Pessoa,{ foreignKey: 'pessoas_id', as:'pessoa' })
  this.belongsTo(models.Usuario,{ foreignKey: 'usuario_id', as:'usuario' })
  this.belongsTo(models.Beneficio,{ foreignKey: 'beneficios_id', as:'beneficio' })
+ this.belongsTo(models.Equipamento,{ foreignKey: 'equipamento_id', as:'equipamento' })
 
   }
  
