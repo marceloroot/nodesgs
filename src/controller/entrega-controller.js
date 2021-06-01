@@ -138,5 +138,84 @@ module.exports = {
         }
     },
 
-  
+    async show(req,res){
+        try{
+            const {id} = req.params;
+            const token = req.body.token || req.query.token || req.headers['x-access-token'];
+            const data = await authService.decodeToken(token);
+            const entrega = await Entrega.findOne({
+                where:{id:id},
+                include:[
+                    {association:"pessoa",
+                       attributes: [
+                          'id','nome','cpf','localidade','logradouro','uf','numero','bairro','telefone','status'// We had to list all attributes...
+                  
+                    ]},
+                    {association:"equipamento",
+                    attributes: [
+                        'id','nome','responsavel' // We had to list all attributes...
+                
+                    ]},
+                    {association:"beneficio",
+                    attributes: [
+                        'id','nome' // We had to list all attributes...
+                
+                    ]},
+                    {association:"usuario",
+                    attributes: [
+                        'id','nome' // We had to list all attributes...
+                
+                    ]}
+                
+                ],
+
+            });
+          
+            return res.status(201).send({
+                entrega,data
+            })
+        }
+        catch(err){
+            res.status(200).send({
+                error:err.message
+            })
+        }
+    },
+
+    async mudastatus(req,res){
+        try{
+            const {id} = req.params;
+            const entrega = await Entrega.findByPk(id);
+            if(!entrega){
+                return res.status(200).send({
+                    msg:'Entrega não existe'
+                });
+            }
+            if(entrega.status == "A"){
+                const entregaAtualizada = entrega.update({
+                    status:"I"
+                })
+                return res.status(201).send({
+                    msg:"Entrega Inativo",
+                    
+                })
+            }
+            else{
+                const entregaAtualizada = entrega.update({
+                    status:"A"
+                })
+                return res.status(201).send({
+                    msg:"Entrega Ativo",
+                    
+                })
+            }
+           
+
+        }
+        catch(err){
+            res.status(200).send({
+                error:err.message
+            })
+        }
+    },
 }

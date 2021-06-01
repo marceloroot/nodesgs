@@ -7,6 +7,10 @@ class Entrega extends Model {
         quantidade:DataTypes.INTEGER,
         observacao:DataTypes.STRING,
         datacadastro:DataTypes.DATE,
+        status: {
+          type: DataTypes.ENUM,
+          values: ["A", "I", "E"]
+        },
     }, {
       sequelize
     });
