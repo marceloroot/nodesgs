@@ -33,7 +33,7 @@ module.exports = {
             let contract = new ValidationContract();
             if(req.body.cpf){
                 const pessoaExist  = await Pessoa.findOne({where:{cpf:req.body.cpf}});
-                contract.isValue(pessoaExist, 'cpf', 'O cpf já existe');
+                contract.isValue(pessoaExist, 'cpf', 'O cpf já cadastrado');
                 contract.isCpfValid(req.body.cpf, 'cpf', 'O cpf invalido');
             }
            
@@ -91,7 +91,7 @@ module.exports = {
         if(req.body.cpf){
             const pessoaExistid  = await Pessoa.findByPk(id);
             const pessoaExist  = await Pessoa.findOne({where:{cpf:req.body.cpf}});
-            contract.isCpfUpdade(pessoaExist,pessoaExistid, 'cpf', 'O cpf já existe');
+            contract.isCpfUpdade(pessoaExist,pessoaExistid, 'cpf', 'O cpf já cadastrado');
             contract.isCpfValid(req.body.cpf, 'cpf', 'O cpf invalido');
             
         }

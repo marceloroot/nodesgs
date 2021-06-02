@@ -82,10 +82,10 @@ module.exports = {
             req.body.datacadastro = Date.now(); 
             req.body.equipamento_id = data.equipamento_id;
             const entrega = await Entrega.create(req.body); 
-
+            console.log(entrega);
             return res.status(201).json({
                 msg:"Emissão Efetuado com sucesso",
-                data:pessoa
+                data:entrega
 
             })
         }
