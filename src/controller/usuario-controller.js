@@ -180,7 +180,7 @@ async autenticar(req,res){
 },
 
 async decoude(req,res){
-        console.log("entrou");
+       
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await authService.decodeToken(token);
         
