@@ -40,6 +40,7 @@ module.exports = {
                 error:contract.errors()
                 })
             };
+            console.log(req.body)
             req.body.chefe="S";
             req.body.usuario_id = data.id;
             const pessoa = await Pessoa.create(req.body); 
